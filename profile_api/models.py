@@ -12,17 +12,17 @@ class UserProfileManager(BaseUserManager):
 
         email =self.normalize_email(email)
         user = self.model(email=email,name=name)
-        user.ser_password(password)
-        user.save(using = self._dp)
+        user.set_password(password)
+        user.save(using=self._db)
         return user;   
 
 
-    def create_super_user(self,email,name,password):
+    def create_superuser(self,email,name,password):
         user = self.create_user(email,name,password)
         user.is_superuser= True; 
         user.is_staff =True ; 
 
-        user.save(self._dp)
+        user.save(using=self._db)
 
         return user ;
 
